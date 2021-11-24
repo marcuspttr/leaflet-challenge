@@ -19,7 +19,7 @@ function createFeatures(earthquakeData) {
   function radius(mag) {
     return mag * 10000;
   }
-
+ // This function references the depth of each earthquake to determine it's color on the graph.
   function color(depth) {
     if (depth >= 90) {
       return "#FF0000"
@@ -97,14 +97,16 @@ function createMap(earthquakes) {
     collapsed: false
   }).addTo(myMap);
 
+  // Creating the legend to describe the depths colors.
   var legend = L.control({position: 'bottomright'});
 
   legend.onAdd = function() {
       var div = L.DomUtil.create('div', 'info legend');
       var depths = [-10, 10, 30, 50, 30, 50, 70, 90];
+      // Trying to hardcode the colors in.
       var colors = ['#7CFC00','#FFFF00','#FFD700','#FFA500','#FF4500','#FF0000']
   
-      // loop through our density intervals and generate a label with a colored square for each interval
+      // Looping through the depths to create labels with a colored square for each interval.
       for (var i = 0; i < depths.length; i++) {
         div.innerHTML +=
         "<i style= 'background: " + colors[i] + "'></i> " + depths[i] + (depths[i+1] ? "&ndash;" + depths[i + 1] + "<br>" : "+");
